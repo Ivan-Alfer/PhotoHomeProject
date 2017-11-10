@@ -23,10 +23,10 @@ public class ImageDaoImpl implements ImageDao{
 	public List<Image> getImages() throws DaoException {
 		List<Image> images = new ArrayList<Image>();
 		try {
-		images = session.createQuery("from images").list();
+		images = session.createQuery("from Image").list();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			throw new DaoException("Database server not responding. Entities not received");
+			throw new DaoException("Database server not responding. Entities not received" + e.getMessage());
 		}
 		return images;
 	}

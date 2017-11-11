@@ -44,26 +44,19 @@ public class ImageController {
 		mav.setViewName("image");
 
 		return mav;
-		/*List<Image> images;
+		
+	}
+
+	@RequestMapping(value = "/imagesJson")
+	@ResponseBody
+	public List<Image> getImagesJson() throws CommandException{
+		List<Image> images;
 		try {
 			images = imageService.getImages();
 		} catch (ServiceException e) {
 			throw new CommandException(e.getMessage());
 		}
-
-		model.addAttribute("images", images);
-
-		String json;
-		ObjectMapper mapper = new ObjectMapper();
-
-		try {
-			json = mapper.writer().writeValueAsString(images);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new CommandException("Could not show all images" + e.getMessage());
-		}
-
-		return "image";*/
+		return images;
+		
 	}
-
 }

@@ -27,6 +27,51 @@ public class Image {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "artist")
+	private String artist;
+	
+	@Column(name = "model")
+	private String model;
+	
+	@Column(name = "imageHeight")
+	private String imageHeight;
+	
+	@Column(name = "imageWidth")
+	private String imageWidth;
+	
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getImageHeight() {
+		return imageHeight;
+	}
+
+	public void setImageHeight(String imageHeight) {
+		this.imageHeight = imageHeight;
+	}
+
+	public String getImageWidth() {
+		return imageWidth;
+	}
+
+	public void setImageWidth(String imageWidth) {
+		this.imageWidth = imageWidth;
+	}
+
+	
 	public Integer getId() {
 		return id;
 	}

@@ -13,8 +13,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	$("h2").append('<em></em>');
-
 	$(".images a").click(function(){
 	
 		var largePath = $(this).attr("href");
@@ -34,7 +32,7 @@ $(document).ready(function(){
 	</c:forEach>
 
 	<p>
-		<img id="largeImg" src="images/i.gif" >
+		<img id="largeImg" src="" >
 	</p>
 
 	<p class = "images">
@@ -44,5 +42,13 @@ $(document).ready(function(){
 			</a>
 		</c:forEach>
 	</p>
+	
+	
+	<form method="POST" action="uploadImage" enctype="multipart/form-data">
+		File to upload: <input type="file" name="file"><br /> 
+		
+                <input type="submit" value="Upload"> 
+		Press here to upload the file!
+	</form>
 </body>
 </html>

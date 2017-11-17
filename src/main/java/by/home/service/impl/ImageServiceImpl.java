@@ -28,6 +28,16 @@ public class ImageServiceImpl implements ImageService{
 			throw new ServiceException("Something happend in DAO" + e.getMessage());
 		}
 		return images;
+	}
+
+	@Override
+	public void addImage(Image image) throws ServiceException {
+		try {
+			imageDao.addImage(image);
+		} catch (DaoException e) {
+			throw new ServiceException("Something happend in DAO "+ e.getMessage());
+		}
+		
 	}	
 
 	

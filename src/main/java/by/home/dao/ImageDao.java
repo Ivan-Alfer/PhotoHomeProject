@@ -8,4 +8,6 @@ import by.home.entity.Image;
 public interface ImageDao {
 
 	List<Image> getImages() throws DaoException;
+	
+	void addImage(Image image) throws DaoException;
 }

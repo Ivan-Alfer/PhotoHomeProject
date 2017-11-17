@@ -66,7 +66,7 @@ public class ImageController {
 	}
 
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-	@ResponseBody
+//	@ResponseBody
 	public String uploadFile(@RequestParam("file") MultipartFile file) {
 		File uploadedFile = null;
 		String name = null;
@@ -86,11 +86,18 @@ public class ImageController {
 
 				uploadedFile = new File(dir.getAbsolutePath() + File.separator + name);
 
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
-
-				stream.write(bytes);
-				stream.flush();
-				stream.close();
+				BufferedOutputStream stream = null;
+				try
+				{
+					stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
+					
+					stream.write(bytes);
+					stream.flush();
+				}
+				finally {
+					if(stream != null)
+						stream.close();	
+				}
 				
 				Metadata metadata = ImageMetadataReader.readMetadata(uploadedFile);
 				Image image = new Image();
@@ -98,6 +105,11 @@ public class ImageController {
 					for (Tag tag : directory.getTags()) {
 
 						String strTagName = tag.getTagName();
+						
+						if (strTagName.equalsIgnoreCase("File Name")) {
+							image.setImageName(tag.getDescription());
+						}
+						
 						if (strTagName.equalsIgnoreCase("artist")) {
 							image.setArtist(tag.getDescription());
 						}
@@ -120,8 +132,12 @@ public class ImageController {
 					}
 				}
 				
-				
-				return "uploaded successfully";
+				try{
+					imageService.addImage(image);
+				}catch (ServiceException e) {
+					throw new CommandException("Could not add image");
+				}
+				return "redirect:/";
 
 			} catch (Exception e) {
 				return "upload failed " + e.getMessage();
@@ -129,7 +145,8 @@ public class ImageController {
 		} else {
 			return "upload failed because the file was empty.";
 		}
-
+		
+		
 	}
 
 }

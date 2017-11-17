@@ -31,4 +31,17 @@ public class ImageDaoImpl implements ImageDao{
 		return images;
 	}
 
+	@Override
+	public void addImage(Image image) throws DaoException {
+		try {
+			session.beginTransaction();
+			session.save(image);
+		} catch (Exception e) {
+			throw new DaoException("Database server not responding. Entity not added");
+		}finally{
+			session.getTransaction().commit();
+		}
+		
+	}
+
 }

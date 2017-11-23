@@ -27,9 +27,6 @@ $(document).ready(function(){
 </head>
 <body>
 
-	<c:forEach items="${imagesJsp}" var="image">
-		<img src="images/${image.imageName}" width="150" height="150" border="2" />
-	</c:forEach>
 
 	<p>
 		<img id="largeImg" src="" >

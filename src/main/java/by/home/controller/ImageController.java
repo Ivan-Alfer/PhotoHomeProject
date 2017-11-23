@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,8 +68,8 @@ public class ImageController {
 	}
 
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-//	@ResponseBody
-	public String uploadFile(@RequestParam("file") MultipartFile file) {
+
+	public String uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		File uploadedFile = null;
 		String name = null;
 
@@ -77,8 +79,8 @@ public class ImageController {
 
 				name = file.getOriginalFilename();
 
-				String rootPath = "D:/workspace/PhotoHomeProject/src/main/webapp/images";
-				File dir = new File(rootPath + File.separator);
+				String rootPath = request.getSession().getServletContext().getRealPath("/images");
+				File dir = new File(rootPath);
 
 				if (!dir.exists()) {
 					dir.mkdirs();
